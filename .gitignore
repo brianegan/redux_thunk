@@ -1,0 +1,9 @@
+.idea
+.packages
+packages
+pubspec.lock
+.pub
+doc/
+coverage*
+*.iml
+lcov.info

@@ -1,0 +1,14 @@
+name: redux_thunk
+author: Brian Egan <brian@brianegan.com>
+description: Redux Middleware for handling functions as actions
+homepage: https://gitlab.com/brianegan/redux_thunk
+version: 0.1.0
+
+environment:
+  sdk: ">=1.23.0 <2.0.0"
+
+dependencies:
+  redux: ">=2.0.0 <3.0.0"
+
+dev_dependencies:
+  test: 0.12.24
