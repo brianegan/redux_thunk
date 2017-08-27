@@ -14,7 +14,7 @@ unit_test:
   image: brianegan/dart-lcov:release-1.24.2
   stage: test
   script:
-    - pub get && pub run test/gitlab_dart_lib_test.dart
+    - pub get && pub run test/redux_thunk_test.dart
 
 coverage:
   image: brianegan/dart-lcov:release-1.24.2
@@ -24,7 +24,7 @@ coverage:
     - pub get --packages-dir
     - pub global activate coverage
     - pub global run coverage:collect_coverage --port=8111 -o coverage.json --resume-isolates --wait-paused &
-    - dart --observe=8111 test/gitlab_dart_lib_test.dart
+    - dart --observe=8111 test/redux_thunk_test.dart
     - pub global run coverage:format_coverage --package-root=packages --report-on lib --in coverage.json --out lcov.info --lcov
     - genhtml lcov.info --output=coverage
   artifacts:
