@@ -1,6 +1,6 @@
 # redux_thunk
 
-[![build status](https://gitlab.com/brianegan/redux_thunk/badges/master/build.svg)](https://gitlab.com/brianegan/redux_thunk/commits/master)  [![coverage report](https://gitlab.com/brianegan/redux_thunk/badges/master/coverage.svg)](https://brianegan.gitlab.io/redux_thunk/coverage/)
+[![Build Status](https://travis-ci.org/brianegan/redux_thunk.svg?branch=master)](https://travis-ci.org/brianegan/redux_thunk) [![codecov](https://codecov.io/gh/brianegan/redux_thunk/branch/master/graph/badge.svg)](https://codecov.io/gh/brianegan/redux_thunk)
 
 [Redux](https://pub.dartlang.org/packages/redux) provides a simple way to update a your application's State in response to synchronous Actions. However, it lacks tools to handle asynchronous code. This is where Thunks come in.
 
