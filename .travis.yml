@@ -1,0 +1,19 @@
+language: dart
+sudo: false
+dart:
+- stable
+- dev
+with_content_shell: false
+dart_task:
+- dartanalyzer: --fatal-warnings lib
+- dartfmt
+script:
+  - set -e
+  - pub run test test/redux_thunk_test.dart
+  - pub get --packages-dir
+  - pub global activate coverage
+  - pub global run coverage:collect_coverage --port=8111 -o coverage.json --resume-isolates --wait-paused &
+  - dart --observe=8111 test/redux_thunk_test.dart
+  - pub global run coverage:format_coverage --package-root=packages --report-on lib --in coverage.json --out lcov.info --lcov
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
