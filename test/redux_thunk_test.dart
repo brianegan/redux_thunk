@@ -1,25 +1,21 @@
 import 'dart:async';
 
 import 'package:redux/redux.dart';
-import 'package:test/test.dart';
 import 'package:redux_thunk/redux_thunk.dart';
+import 'package:test/test.dart';
 
-main() {
-  final identityReducer =
-      (String state, action) => action is String ? action : state;
+void main() {
+  final Reducer<String> identityReducer =
+      (String state, dynamic action) => action is String ? action : state;
 
   group('Thunk Middleware', () {
-    test('is a Redux Middleware', () {
-      expect(thunkMiddleware, new isInstanceOf<Middleware>());
-    });
-
     test('dispatches an action from ThunkActions', () {
       final store = new Store<String>(
         identityReducer,
         middleware: [thunkMiddleware],
       );
       final dispatchedAction = "Friend";
-      final action = (Store<String> store) {
+      final ThunkAction<String> action = (Store<String> store) {
         store.dispatch(dispatchedAction);
       };
 
@@ -34,7 +30,7 @@ main() {
         middleware: [thunkMiddleware],
       );
       final dispatchedAction = "Friend";
-      final future = new Future(
+      final future = new Future<String>(
         () => dispatchedAction,
       );
       final action = (Store<String> store) async {

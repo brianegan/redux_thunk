@@ -36,8 +36,12 @@ import 'package:redux/redux.dart';
 ///
 ///      store.dispatch(searchResults);
 ///    };
-void thunkMiddleware<State>(Store<State> store, action, NextDispatcher next) {
-  if (action is ThunkAction) {
+void thunkMiddleware<State>(
+  Store<State> store,
+  dynamic action,
+  NextDispatcher next,
+) {
+  if (action is ThunkAction<State>) {
     action(store);
   } else {
     next(action);
