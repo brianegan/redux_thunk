@@ -5,8 +5,8 @@ import 'package:redux_thunk/redux_thunk.dart';
 import 'package:test/test.dart';
 
 void main() {
-  final Reducer<String> identityReducer =
-      (String state, dynamic action) => action is String ? action : state;
+  String identityReducer(String state, dynamic action) =>
+      action is String ? action : state;
 
   group('Thunk Middleware', () {
     test('dispatches an action from ThunkActions', () {
