@@ -34,6 +34,21 @@ final action = (Store<String> store) async {
 
   store.dispatch(searchResults);
 };
+
+// You can also use a function with some parameters to create a thunk, 
+// and then use it like so: store.dispatch(waitAndDispatch(3));
+ThunkAction<String> waitAndDispatch(int secondsToWait) {
+  return (Store<String> store) async {
+    final searchResults = await new Future.delayed(
+      new Duration(seconds: secondsToWait),
+      () => "Search Results",
+    );
+
+    store.dispatch(searchResults);
+  };
+}
+
+
 ```
     
 ## Credits
