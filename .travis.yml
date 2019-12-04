@@ -1,7 +1,7 @@
 language: dart
 sudo: false
 dart:
-- dev
+- stable
 with_content_shell: false
 dart_task:
 - dartanalyzer: --fatal-warnings lib
