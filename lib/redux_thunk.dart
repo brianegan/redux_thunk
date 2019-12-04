@@ -36,15 +36,63 @@ import 'package:redux/redux.dart';
 ///
 ///      store.dispatch(searchResults);
 ///    };
-void thunkMiddleware<State>(
+dynamic thunkMiddleware<State>(
   Store<State> store,
   dynamic action,
   NextDispatcher next,
 ) {
   if (action is ThunkAction<State>) {
-    action(store);
+    return action(store);
+  } else if (action is CallableThunkAction<State>) {
+    return action.call(store);
   } else {
-    next(action);
+    return next(action);
+  }
+}
+
+/// The [ExtraArgumentThunkMiddleware] works exactly like the normal
+/// [thunkMiddleware] with one difference: It injects the provided "extra
+/// argument" into all Thunk functions.
+///
+/// ### Example
+///
+/// ```dart
+/// // First, create a quick reducer
+/// final reducer = (String state, action) => action is String ? action : state;
+///
+/// // Next, apply the `ExtraArgumentThunkMiddleware` to the Store. In this
+/// // case, we want to provide an http client to each thunk function.
+/// final store = new Store<String>(
+///   reducer,
+///   middleware: [ExtraArgumentThunkMiddleware(http.Client())],
+///  );
+///
+/// // Create a `ThunkActionWithExtraArgument`, which is a fancy name for a
+/// // function that takes in a Store and the extra argument provided above
+/// // (the http.Client).
+/// Future<void> fetchBlogAction(Store<String> store, http.Client client) async {
+///   final response = await client.get('https://jsonplaceholder.typicode.com/posts');
+///
+///   store.dispatch(response.body);
+/// }
+/// ```
+class ExtraArgumentThunkMiddleware<S, A> extends MiddlewareClass<S> {
+  /// An Extra argument that will be injected into every thunk function.
+  final A extraArgument;
+
+  /// Create a ThunkMiddleware that will inject an extra argument into every
+  /// thunk function
+  ExtraArgumentThunkMiddleware(this.extraArgument);
+
+  @override
+  dynamic call(Store<S> store, dynamic action, NextDispatcher next) {
+    if (action is ThunkActionWithExtraArgument<S, A>) {
+      return action(store, extraArgument);
+    } else if (action is CallableThunkActionWithExtraArgument<S, A>) {
+      return action.call(store, extraArgument);
+    } else {
+      return next(action);
+    }
   }
 }
 
@@ -54,4 +102,32 @@ void thunkMiddleware<State>(
 ///
 /// The ThunkFunction receives a [Store], which it can use to get the latest
 /// state if need be, or dispatch actions at the appropriate time.
-typedef void ThunkAction<State>(Store<State> store);
+typedef dynamic ThunkAction<State>(Store<State> store);
+
+/// An interface that can be implemented by end-users to create a class-based
+/// [ThunkAction].
+abstract class CallableThunkAction<State> {
+  /// The method that acts as the [ThunkAction]
+  dynamic call(Store<State> store);
+}
+
+/// A function that can be dispatched as an action to a Redux [Store] and
+/// intercepted by the the [ExtraArgumentThunkMiddleware]. It can be used to
+/// delay the dispatch of an action, or to dispatch only if a certain condition
+/// is met.
+///
+/// The [Store] argument is used to get the latest state if need be, or dispatch
+/// actions at the appropriate time.
+///
+/// The [extraArgument] argument is injected via [ExtraArgumentThunkMiddleware].
+typedef dynamic ThunkActionWithExtraArgument<S, A>(
+  Store<S> store,
+  A extraArgument,
+);
+
+/// An interface that can be implemented by end-users to create a class-based
+/// [ThunkActionWithExtraArgument].
+abstract class CallableThunkActionWithExtraArgument<S, A> {
+  /// The method that acts as the [ThunkActionWithExtraArgument]
+  dynamic call(Store<S> store, A extraArgument);
+}
