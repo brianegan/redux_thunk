@@ -54,7 +54,7 @@ void main() {
         middleware: [thunkMiddleware],
       );
 
-      await store.dispatch(AsyncThunk());
+      await expectLater(store.dispatch(AsyncThunk()), completes);
 
       expect(store.state, 'A');
     });

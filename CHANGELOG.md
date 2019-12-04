@@ -1,4 +1,9 @@
-# Changelog 
+# Changelog
+
+## 0.3.0
+
+  * Breaking Change: Update to support Redux 4.x - 5.0
+  * Thunks can now return values! 
 
 ## 0.2.0
 

@@ -2,7 +2,7 @@ name: redux_thunk
 author: Brian Egan <brian@brianegan.com>
 description: A Redux.dart Middleware that allows you to dispatch functions that perform async work as actions.
 homepage: https://github.com/brianegan/redux_thunk
-version: 0.2.1
+version: 0.3.0
 
 environment:
   sdk: ">=2.0.0 <3.0.0"
