@@ -95,7 +95,7 @@ void main() {
         store.dispatch('$extra');
       }
 
-      await store.dispatch(action);
+      await expectLater(store.dispatch(action), completes);
 
       expect(store.state, '1');
     });
