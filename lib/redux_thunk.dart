@@ -102,7 +102,7 @@ class ExtraArgumentThunkMiddleware<S, A> extends MiddlewareClass<S> {
 ///
 /// The ThunkFunction receives a [Store], which it can use to get the latest
 /// state if need be, or dispatch actions at the appropriate time.
-typedef dynamic ThunkAction<State>(Store<State> store);
+typedef ThunkAction<State> = dynamic Function(Store<State> store);
 
 /// An interface that can be implemented by end-users to create a class-based
 /// [ThunkAction].
@@ -120,7 +120,7 @@ abstract class CallableThunkAction<State> {
 /// actions at the appropriate time.
 ///
 /// The [extraArgument] argument is injected via [ExtraArgumentThunkMiddleware].
-typedef dynamic ThunkActionWithExtraArgument<S, A>(
+typedef ThunkActionWithExtraArgument<S, A> = dynamic Function(
   Store<S> store,
   A extraArgument,
 );

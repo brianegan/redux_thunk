@@ -12,6 +12,7 @@ void main() {
     test('intercepts and handles synchronous ThunkActions', () {
       final store = Store<String>(
         identityReducer,
+        initialState: '',
         middleware: [thunkMiddleware],
       );
       void action(Store<String> store) => store.dispatch('A');
@@ -24,6 +25,7 @@ void main() {
     test('intercepts and handles synchronous CallableThunkActions', () {
       final store = Store<String>(
         identityReducer,
+        initialState: '',
         middleware: [thunkMiddleware],
       );
 
@@ -35,6 +37,7 @@ void main() {
     test('dispatches an async action from ThunkActions', () async {
       final store = Store<String>(
         identityReducer,
+        initialState: '',
         middleware: [thunkMiddleware],
       );
       Future<void> action(Store<String> store) async {
@@ -51,6 +54,7 @@ void main() {
     test('dispatches an async action from CallableThunkActions', () async {
       final store = Store<String>(
         identityReducer,
+        initialState: '',
         middleware: [thunkMiddleware],
       );
 
@@ -64,6 +68,7 @@ void main() {
     test('handles sync ThunkActionWithExtraArgument', () {
       final store = Store<String>(
         identityReducer,
+        initialState: '',
         middleware: [ExtraArgumentThunkMiddleware<String, int>(1)],
       );
       void action(Store<String> store, int arg) => store.dispatch('$arg');
@@ -76,6 +81,7 @@ void main() {
     test('handles sync CallableThunkActionWithExtraArgument', () {
       final store = Store<String>(
         identityReducer,
+        initialState: '',
         middleware: [ExtraArgumentThunkMiddleware<String, int>(1)],
       );
 
@@ -87,6 +93,7 @@ void main() {
     test('handles async ThunkActionWithExtraArgument', () async {
       final store = Store<String>(
         identityReducer,
+        initialState: '',
         middleware: [ExtraArgumentThunkMiddleware<String, int>(1)],
       );
       Future<void> action(Store<String> store, int extra) async {
@@ -103,6 +110,7 @@ void main() {
     test('handles async CallableThunkActionWithExtraArgument', () async {
       final store = Store<String>(
         identityReducer,
+        initialState: '',
         middleware: [ExtraArgumentThunkMiddleware<String, int>(1)],
       );
 

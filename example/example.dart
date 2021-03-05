@@ -11,6 +11,7 @@ void main() {
   // Next, apply the `thunkMiddleware` to the Store
   final store = Store<String>(
     reducer,
+    initialState: '',
     middleware: [thunkMiddleware],
   );
 
@@ -20,9 +21,9 @@ void main() {
   // but  in real life, you could make a call to an HTTP service or
   // database instead!
   void action(Store<String> store) async {
-    final String searchResults = await Future.delayed(
+    var searchResults = await Future.delayed(
       Duration(seconds: 1),
-      () => "Search Results",
+      () => 'Search Results',
     );
 
     store.dispatch(searchResults);
