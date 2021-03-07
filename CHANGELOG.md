@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.0
+
+  * Breaking Change: updated to redux 5.0.0
+  * Breaking Change: added null-safety
+
 ## 0.3.0
 
   * Breaking Change: Update to support Redux 4.x - 5.0
